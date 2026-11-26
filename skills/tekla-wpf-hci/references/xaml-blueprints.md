@@ -342,6 +342,11 @@ namespace MyTeklaPlugin
 </Expander>
 ```
 ## 7. Smart Property Batch Parser with Typo Guard (#3 - Strict C# 7.3)
+- **Autocomplete:** Provide a top-level search bar with a `Popup` suggesting **only** existing, valid ViewModel properties/attributes.
+- **Comma-Separated Batch Assignment:** Support `Name = Value` assignments separated by `,` (e.g., `Framewidth=600, Shaft Centre Height = 350, Discharge flange thickness = 5`).
+  - Tokenize on `,` and `=`, strip all whitespace, and compare case-insensitively against property metadata.
+  - Convert and apply values to ViewModel properties (updating local state + 2D preview ONLY—never auto-firing Tekla `Modify()`).
+- **Typo & Parse Guard:** Never silently drop failed assignments. Flag unrecognized property names with an edit-distance fuzzy suggestion and visual red error flash; flash green on clean commit.
 ```csharp
 using System;
 using System.Collections.Generic;

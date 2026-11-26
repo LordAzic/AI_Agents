@@ -26,11 +26,8 @@ description: Enforces HCI psychology (Cognitive Load Theory, Spatial Contiguity,
 - **Hysteresis Deadband:** Apply a `±15 px` hysteresis buffer around the collapse threshold so the 2D preview never flickers on/off during edge resizing.
 
 ## 4. Smart Property Search & Batch Setter (#3)
-- **Autocomplete:** Provide a top-level search bar with a `Popup` suggesting **only** existing, valid ViewModel properties/attributes.
-- **Comma-Separated Batch Assignment:** Support `Name = Value` assignments separated by `,` (e.g., `Framewidth=600, Shaft Centre Height = 350, Discharge flange thickness = 5`).
-  - Tokenize on `,` and `=`, strip all whitespace, and compare case-insensitively against property metadata.
-  - Convert and apply values to ViewModel properties (updating local state + 2D preview ONLY—never auto-firing Tekla `Modify()`).
-- **Typo & Parse Guard:** Never silently drop failed assignments. Flag unrecognized property names with an edit-distance fuzzy suggestion and visual red error flash; flash green on clean commit.
+- Provide a top-level autocomplete search bar supporting comma-separated `Name = Value` batch edits (local ViewModel + 2D preview ONLY—never auto-fire `Modify()`), with edit-distance typo guard. Load `references/xaml-blueprints.md` for tokenization and popup wiring.
+
 
 ## 5. Interactive Vertical Expander Controls & Behaviours (#4, #6, #8)
 - **Right-Click Quick Collapse (#4):** Right-clicking (`PreviewMouseRightButtonUp`) anywhere inside an open vertical expander collapses it—EXCEPT when `e.OriginalSource` is inside an interactive control (`TextBox`, `Button`, `ToggleButton`, `ComboBox`, `Slider`, or color swatch). Before setting `IsExpanded = false`, force `BindingExpression.UpdateSource()` / `Keyboard.ClearFocus()` so active edits always commit first.
